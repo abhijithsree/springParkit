@@ -24,8 +24,6 @@ public class AdruinoController {
     @Autowired
     AdruinoService adruinoService;
 
-    @Autowired
-    ProfileService profileService;
 
     @PostMapping(value = "/updateSensor", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> updateSensorData(@RequestParam Map<String, String> requestParams) throws Exception {

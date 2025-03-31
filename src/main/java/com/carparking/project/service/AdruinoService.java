@@ -37,6 +37,8 @@ public class AdruinoService {
         System.out.println("I am in" + requestParams);
         //return "1gokul";
         String vehicleno = imageService.getVehicleNumber();
+        System.out.println("vehicleno=======" + vehicleno);
+
         vehicleno = vehicleno.replaceAll("\\s+", "").toLowerCase();
         System.out.println(vehicleno);
         Optional<Profile> profile = Optional.ofNullable(profileService.getProfileByVehicleNumber(vehicleno));

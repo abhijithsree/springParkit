@@ -71,10 +71,7 @@ public class ProfileService {
         entity.setPhoneNum(profileDto.getPhoneNum());
         entity.setNoOfVehicles(1);
         entity.setPaidStatus(false);
-        entity.setPaidAmount((double) 0);
-        entity.setTotalAmount((double) 0);
-        entity.setBanned(false);
-        entity.setFineAmount((double) 0);
+        entity.setIsBanned(false);
         entity.setAdminMailId(loginRepository.getActiveUser());
         Profile profile = profileRepository.save(entity);
         if (Objects.nonNull(profile)) {
@@ -98,11 +95,8 @@ public class ProfileService {
         profile.setEndtime(LocalDateTime.now().plusHours(1).toLocalTime().toString());
         profile.setNoOfVehicles(1);
         profile.setPaidStatus(false);
-        profile.setPaidAmount((double) 0);
-        profile.setTotalAmount((double) 0);
         profile.setBookingTime(LocalDateTime.now().toLocalTime().toString());
-        profile.setBanned(false);
-        profile.setFineAmount((double) 0);
+        profile.setIsBanned(false);
         Profile obj = profileRepository.save(profile);
         if (Objects.nonNull(obj)) {
             System.out.println("On site profile created");
@@ -198,7 +192,7 @@ public class ProfileService {
     public String ban(String vehicleNumber) {
         Profile profile = profileRepository.findByVehicleNumber(vehicleNumber);
         User user = loginRepository.findByEmail(profile.getUserEmailId());
-        profile.setBanned(true);
+        profile.setIsBanned(true);
         user.setIs_banned(true);
         profile = profileRepository.save(profile);
         if (Objects.nonNull(profile)) {

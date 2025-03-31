@@ -1,72 +1,98 @@
 package com.carparking.project.entities;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "profile")
 public class Profile {
 
     @Id
-    @Column(name="vehicle_number")
+    @Column(name = "vehicle_number", nullable = false, length = 50)
     private String vehicleNumber;
 
-    private Integer remainingtime;
+    @Column(name = "phone_num", length = 20)
     private String phoneNum;
+
+    @Column(name = "user_name", length = 50)
     private String userName;
-    private Integer noOfVehicles;
+
+    @Column(name = "no_of_vehicles", columnDefinition = "int default 1")
+    private Integer noOfVehicles = 1;
+
+    @Column(name = "vehicle_type", length = 20)
     private String vehicleType;
+
+    @Column(name = "booking_date", length = 20)
     private String bookingDate;
+
+    @Column(name = "user_email_id", length = 50)
     private String userEmailId;
-    private Boolean paidStatus;
-    private Double paidAmount;
+
+    @Column(name = "paid_status", columnDefinition = "tinyint(1) default 0")
+    private Boolean paidStatus = false;
+
+    @Column(name = "paid_amount", precision = 10, scale = 0, columnDefinition = "decimal(10,0) default 0")
+    private BigDecimal paidAmount = BigDecimal.ZERO;
+
+    @Column(name = "allocated_slot_number", length = 50)
     private String allocatedSlotNumber;
+
+    @Column(name = "parked_property_name", length = 50)
     private String parkedPropertyName;
+
+    @Column(name = "duration_of_allocation", length = 20)
     private String durationOfAllocation;
+
+    @Column(name = "payment_date", length = 20)
     private String paymentDate;
 
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "vehicleNumber='" + vehicleNumber + '\'' +
-                ", remainingtime=" + remainingtime +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", userName='" + userName + '\'' +
-                ", noOfVehicles=" + noOfVehicles +
-                ", vehicleType='" + vehicleType + '\'' +
-                ", bookingDate=" + bookingDate +
-                ", userEmailId='" + userEmailId + '\'' +
-                ", paidStatus=" + paidStatus +
-                ", paidAmount=" + paidAmount +
-                ", allocatedSlotNumber='" + allocatedSlotNumber + '\'' +
-                ", parkedPropertyName='" + parkedPropertyName + '\'' +
-                ", durationOfAllocation='" + durationOfAllocation + '\'' +
-                ", paymentDate='" + paymentDate + '\'' +
-                ", adminMailId='" + adminMailId + '\'' +
-                ", vehicleModel='" + vehicleModel + '\'' +
-                ", totalAmount=" + totalAmount +
-                ", bookingTime=" + bookingTime +
-                ", isBanned=" + isBanned +
-                ", fineAmount=" + fineAmount +
-                ", bookingSource='" + bookingSource + '\'' +
-                ", endtime=" + endtime +
-                '}';
-    }
-
+    @Column(name = "admin_mail_id", length = 50)
     private String adminMailId;
+
+    @Column(name = "vehicle_model", length = 50)
     private String vehicleModel;
-    private Double totalAmount;
+
+    @Column(name = "total_amount", precision = 10, scale = 0, columnDefinition = "decimal(10,0) default 0")
+    private BigDecimal totalAmount = BigDecimal.ZERO;
+
+    @Column(name = "booking_time", length = 20)
     private String bookingTime;
-    private Boolean isBanned;
-    private Double fineAmount;
+
+    @Column(name = "is_banned", columnDefinition = "tinyint(1) default 0")
+    private Boolean isBanned = false;
+
+    @Column(name = "fine_amount", columnDefinition = "int default 0")
+    private Integer fineAmount = 0;
+
+    @Column(name = "booking_source", length = 10)
     private String bookingSource;
-    private String endtime;
+
+    @Column(name = "role_name", length = 10)
     private String roleName;
+
+    @Column(name = "vehicle_brand", length = 20)
     private String vehicleBrand;
+
+    @Column(name = "fuel_type", length = 20)
     private String fuelType;
+
+    @Column(name = "vehicle_clr", length = 20)
     private String vehicleClr;
+
+    @Column(name = "vehicle_gene", length = 20)
     private String vehicleGene;
+
+    @Column(name = "endtime", length = 20)
+    private String endtime;
+
+    @Column(name = "remainingtime", length = 20)
+    private String remainingtime;
+
+    // Getters and Setters
 
     public String getVehicleNumber() {
         return vehicleNumber;
@@ -124,43 +150,19 @@ public class Profile {
         this.userEmailId = userEmailId;
     }
 
-    public Boolean isPaidStatus() {
+    public Boolean getPaidStatus() {
         return paidStatus;
-    }
-
-    public Integer getRemainingtime() {
-        return remainingtime;
-    }
-
-    public void setRemainingtime(Integer remainingtime) {
-        this.remainingtime = remainingtime;
     }
 
     public void setPaidStatus(Boolean paidStatus) {
         this.paidStatus = paidStatus;
     }
 
-    public Boolean getPaidStatus() {
-        return paidStatus;
-    }
-
-    public Boolean getBanned() {
-        return isBanned;
-    }
-
-    public String getEndtime() {
-        return endtime;
-    }
-
-    public void setEndtime(String endtime) {
-        this.endtime = endtime;
-    }
-
-    public Double getPaidAmount() {
+    public BigDecimal getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(Double paidAmount) {
+    public void setPaidAmount(BigDecimal paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -212,11 +214,11 @@ public class Profile {
         this.vehicleModel = vehicleModel;
     }
 
-    public Double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Double totalAmount) {
+    public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -228,19 +230,19 @@ public class Profile {
         this.bookingTime = bookingTime;
     }
 
-    public Boolean isBanned() {
+    public Boolean getIsBanned() {
         return isBanned;
     }
 
-    public void setBanned(Boolean banned) {
-        isBanned = banned;
+    public void setIsBanned(Boolean isBanned) {
+        this.isBanned = isBanned;
     }
 
-    public Double getFineAmount() {
+    public Integer getFineAmount() {
         return fineAmount;
     }
 
-    public void setFineAmount(Double fineAmount) {
+    public void setFineAmount(Integer fineAmount) {
         this.fineAmount = fineAmount;
     }
 
@@ -290,5 +292,21 @@ public class Profile {
 
     public void setVehicleGene(String vehicleGene) {
         this.vehicleGene = vehicleGene;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
+    }
+
+    public String getRemainingtime() {
+        return remainingtime;
+    }
+
+    public void setRemainingtime(String remainingtime) {
+        this.remainingtime = remainingtime;
     }
 }

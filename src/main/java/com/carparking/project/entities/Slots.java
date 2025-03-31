@@ -10,36 +10,104 @@ public class Slots implements Comparable<Slots>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "slot_id")
     private int slotId;
 
+    @Column(name = "slot_number")
     private String slotNumber;
+
     private String floor;
-    private String vehicleType; // Added vehicleType
+
+    @Column(name = "vehicle_type")
+    private String vehicleType;
+
+    @Column(name = "property_name")
     private String propertyName;
+
     private String city;
     private String district;
     private String state;
     private String country;
+
+    @Column(name = "slot_availability")
     private boolean slotAvailability;
+
+    @Column(name = "google_location")
     private String googleLocation;
+
+    @Column(name = "admin_name")
     private String adminName;
+
+    @Column(name = "admin_phone")
     private String adminPhone;
+
+    @Column(name = "property_type")
     private String propertyType;
+
+    @Column(name = "admin_mail_id")
     private String adminMailId;
+
+    @Column(name = "vehicle_num")
     private String vehicleNum;
+
+
     private Integer x;
     private Integer y;
     private Integer height;
     private Integer width;
+
     private String ranges;
+
+    @Column(name = "hold")
     private boolean hold;
+
+    @Column(name = "hold_expiry_time")
     private String holdExpiryTime;
+
+    @Column(name = "start_time")
     private String startTime;
+
+    @Column(name = "exit_time")
     private String exitTime;
+
+    @Column(name = "sheet_id")
     private String sheetId;
+
 
     // Default constructor
     public Slots() {}
+
+    @Override
+    public String toString() {
+        return "Slots{" +
+                "slotId=" + slotId +
+                ", slotNumber='" + slotNumber + '\'' +
+                ", floor='" + floor + '\'' +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", propertyName='" + propertyName + '\'' +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                ", slotAvailability=" + slotAvailability +
+                ", googleLocation='" + googleLocation + '\'' +
+                ", adminName='" + adminName + '\'' +
+                ", adminPhone='" + adminPhone + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", adminMailId='" + adminMailId + '\'' +
+                ", vehicleNum='" + vehicleNum + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", height=" + height +
+                ", width=" + width +
+                ", ranges='" + ranges + '\'' +
+                ", hold=" + hold +
+                ", holdExpiryTime='" + holdExpiryTime + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", exitTime='" + exitTime + '\'' +
+                ", sheetId='" + sheetId + '\'' +
+                '}';
+    }
 
     public Slots(SlotsDto slotsDto, String slotNumber, String floor, String vehicleType) {
         this.slotNumber = slotNumber;
@@ -155,38 +223,6 @@ public class Slots implements Comparable<Slots>{
 
     public void setAdminName(String adminName) {
         this.adminName = adminName;
-    }
-
-    // toString method for easy debugging
-    @Override
-    public String toString() {
-        return "Slot{" +
-                "slotNumber='" + slotNumber + '\'' +
-                ", floor='" + floor + '\'' +
-                ", vehicleType='" + vehicleType + '\''+
-                ", propertyName='" + propertyName + '\'' +
-                ", city='" + city + '\'' +
-                ", district='" + district + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", slotAvailability=" + slotAvailability +
-                ", googleLocation='" + googleLocation + '\'' +
-                ", adminName='" + adminName + '\'' +
-                ", adminPhone='" + adminPhone + '\'' +
-                ", propertyType='" + propertyType + '\'' +
-                ", adminMailId='" + adminMailId + '\'' +
-                ", vehicleNum='" + vehicleNum + '\'' +
-                ", x='" + x + '\'' +
-                ", y='" + y + '\'' +
-                ", height='" + height + '\'' +
-                ", width='" + width + '\'' +
-                ", ranges='" + ranges + '\'' +
-                ", hold='" + hold + '\'' +
-                ", holdExpiryTime='" + holdExpiryTime + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", exitTime='" + exitTime + '\'' +
-                ", sheetId='" + sheetId + '\'' +
-                '}';
     }
 
     public String getAdminPhone() {

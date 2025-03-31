@@ -20,7 +20,7 @@ public class ProfileScheduler {
     @Autowired
     SlotsService slotsService;
 
-    @Scheduled(fixedRate = 1000)
+    //@Scheduled(fixedRate = 1000)
     public void updateProfile() throws JsonProcessingException {
     System.out.println("updation from qr code started");
        List<Profile> profiles =  profileService.getProfiles();
@@ -39,7 +39,7 @@ public class ProfileScheduler {
        });
 
     }
-    @Scheduled(fixedRate = 2000)
+    //@Scheduled(fixedRate = 2000)
 public void leaveSlot(){
       Map<String,String> profileWithTimer =   profileService.getAllTimer();
         for (Map.Entry<String, String> entry : profileWithTimer.entrySet()) {

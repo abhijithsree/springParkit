@@ -50,9 +50,9 @@ public class JotFormSubmissionsHelper {
         return  "Submission deleted successfully!";
     }
 
-    public  JSONArray getSubmissionId(String formId){
+    public  JSONArray getSubmissionId(String formId) {
 
-        JSONArray submissions =null;
+        JSONArray submissions = null;
         try {
             URL url = new URL("https://api.jotform.com/form/" + formId + "/submissions?apiKey=" + API_KEY);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -68,7 +68,7 @@ public class JotFormSubmissionsHelper {
             br.close();
 
             JSONObject jsonResponse = new JSONObject(response.toString());
-             submissions = jsonResponse.getJSONArray("content");
+            submissions = jsonResponse.getJSONArray("content");
 
             System.out.println("Submission IDs:");
             for (int i = 0; i < submissions.length(); i++) {
@@ -82,4 +82,6 @@ public class JotFormSubmissionsHelper {
         }
         return submissions;
     }
-}
+    }
+
+
