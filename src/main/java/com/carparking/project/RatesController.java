@@ -4,7 +4,6 @@ import com.carparking.project.entities.Profile;
 import com.carparking.project.helper.RateHelper;
 import com.carparking.project.repository.ProfileRepository;
 import com.carparking.project.service.ProfileService;
-import com.carparking.project.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +26,9 @@ public class RatesController {
 
 
     @GetMapping("/paymentdetails")
-    public ResponseEntity<Map<String,Double>> getPayment(@RequestParam String vehicleNumber)
-    {
-       Profile profile =  profileRepository.findByVehicleNumber(vehicleNumber);
-       String duration =  profileService.duration(LocalDateTime.now(),LocalDateTime.parse(profile.getEndtime(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
+    public ResponseEntity<Map<String, Double>> getPayment(@RequestParam String vehicleNumber) {
+        Profile profile = profileRepository.findByVehicleNumber(vehicleNumber);
+        String duration = profileService.duration(LocalDateTime.now(), LocalDateTime.parse(profile.getEndtime(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         return ResponseEntity.ok(rateHelper.findtotalrate(duration));
 
     }

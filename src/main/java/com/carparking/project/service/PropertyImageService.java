@@ -33,7 +33,7 @@ public class PropertyImageService {
         return propertyImageRepository.findByPropertyName(propertyName);
     }
 
-    public List<PropertyImageEntity> getAllProperty(){
+    public List<PropertyImageEntity> getAllProperty() {
         return (List<PropertyImageEntity>) propertyImageRepository.findAll();
     }
 }

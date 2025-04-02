@@ -1,7 +1,7 @@
 package com.carparking.project;
 
 import com.carparking.project.domain.PropertyImage;
-import com.carparking.project.entities.PropertyImageEntity; // Import the entity class
+import com.carparking.project.entities.PropertyImageEntity;
 import com.carparking.project.service.PropertyImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

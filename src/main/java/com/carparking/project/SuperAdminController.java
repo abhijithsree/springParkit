@@ -2,7 +2,6 @@ package com.carparking.project;
 
 import com.carparking.project.service.SuperAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class SuperAdminController {
     }
 
     @GetMapping("reject-property-details")
-    public String rejectCredentials(@RequestParam String email){
+    public String rejectCredentials(@RequestParam String email) {
         return superAdminService.rejectPropertyDetails(email);
     }
 }

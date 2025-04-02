@@ -65,18 +65,17 @@ public class SlotsService {
         return slots;
     }
 
-    public String getActiveUser(){
+    public String getActiveUser() {
         return loginRepository.getActiveUser();
     }
 
-    public Boolean isAvailableSlot(){
+    public Boolean isAvailableSlot() {
         String adminMailId = getActiveUser();
-        if (adminMailId != null){
-            List<Slots> slots= getAllSlots(adminMailId);
+        if (adminMailId != null) {
+            List<Slots> slots = getAllSlots(adminMailId);
             return slots.stream()
                     .anyMatch(slot -> slot.isSlotAvailability() && "Car".equalsIgnoreCase(slot.getVehicleType()));
-        }
-        else {
+        } else {
             return false;
         }
     }

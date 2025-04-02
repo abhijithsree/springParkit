@@ -1,11 +1,7 @@
 package com.carparking.project.service;
-import java.io.InputStream;
-import java.io.FileOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import com.carparking.project.domain.OcrResponse;
 import com.carparking.project.domain.ParsedResult;
-import com.carparking.project.helper.SlotsHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -20,23 +16,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
 @Service
 public class ImageService {
 
-    @Autowired
-    EmailService emailService;
-
     private static final String API_KEY = "helloworld";
     private static final String API_URL = "https://api.ocr.space/parse/image";
     private static final ObjectMapper objectMapper = new ObjectMapper();  // Single ObjectMapper instance
-
     private static final CloseableHttpClient httpClient = HttpClients.createDefault();  // Reuse HTTP client
+    @Autowired
+    EmailService emailService;
 
-    public static void getImage(){
+    public static void getImage() {
         try {
             // ESP32-CAM snapshot URL
             String snapshotUrl = "http://192.168.146.200:8080/shot.jpg";
@@ -77,7 +75,7 @@ public class ImageService {
         }
     }
 
-    public  String getVehicleNumber() {
+    public String getVehicleNumber() {
         //getImage();
         String userHome = System.getProperty("user.home");
         String documentsPath = userHome + File.separator + "Documents";
@@ -126,8 +124,6 @@ public class ImageService {
         }
         return null;
     }
-
-
 
 
 }

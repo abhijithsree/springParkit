@@ -3,8 +3,6 @@ package com.carparking.project.service;
 import com.carparking.project.entities.Profile;
 import com.carparking.project.entities.Slots;
 import com.carparking.project.helper.SlotsHelper;
-import com.carparking.project.repository.LoginRepository;
-import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,11 +42,11 @@ public class AdruinoService {
         Optional<Profile> profile = Optional.ofNullable(profileService.getProfileByVehicleNumber(vehicleno));
         if (profile.isPresent()) {
             Profile profile1 = profileService.getProfileByVehicleNumber(vehicleno);
-            return "1"+profile1.getUserName().toString();
+            return "1" + profile1.getUserName();
         } else if (slotsService.isAvailableSlot()) {
             Slots slots = slotsHelper.parkCar(vehicleno);
             profileService.saveOnSiteProfile(vehicleno, slots, "ON-SITE");
-            return "up"+slots.getSlotNumber();
+            return "up" + slots.getSlotNumber();
         } else {
             return "0";
         }

@@ -1,4 +1,5 @@
 package com.carparking.project.config;
+
 public class RateCalculator {
     public static void main(String[] args) {
         double baseRatePerHour = 60.0;

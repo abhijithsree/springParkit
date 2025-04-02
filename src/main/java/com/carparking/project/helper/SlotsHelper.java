@@ -1,8 +1,8 @@
 package com.carparking.project.helper;
 
 import com.carparking.project.entities.Slots;
-import com.carparking.project.service.SlotsService;
 import com.carparking.project.repository.SlotsRepository;
+import com.carparking.project.service.SlotsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class SlotsHelper {
 
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusHours(1);
-        slotsRepository.updateSlotAvailability(slot.getSlotId(), false, vehicleNum,startTime.toString(),endTime.toString());
+        slotsRepository.updateSlotAvailability(slot.getSlotId(), false, vehicleNum, startTime.toString(), endTime.toString());
 
         return slot;
     }
@@ -56,7 +56,7 @@ public class SlotsHelper {
     // Remove a car from a parking slot
     public String leaveSlot(Slots slot) {
         if (!slot.isSlotAvailability()) {
-            slotsRepository.updateSlotAvailability(slot.getSlotId(), true, null,null,null);
+            slotsRepository.updateSlotAvailability(slot.getSlotId(), true, null, null, null);
             return "Slot " + slot.getSlotNumber() + " is now available";
         }
         return "Slot is already empty or invalid";

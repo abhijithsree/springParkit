@@ -1,4 +1,5 @@
 package com.carparking.project.helper;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -11,23 +12,21 @@ import java.net.URL;
 
 @Service
 public class JotFormSubmissionsHelper {
-    private static final String API_KEY = "08a0d24f66cb11857e6faf1ebe788fdc";
-   // private static final String FORM_ID = "250571659232054";
+    private static final String API_KEY = "cddafdb394ece027f76898d35eca913d";
+    // private static final String FORM_ID = "250571659232054";
 
 
-
-    public  String getFormResponse(String formId) {
+    public String getFormResponse(String formId) {
         String url = "https://api.jotform.com/form/" + formId + "/submissions?apiKey=" + API_KEY;
 
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(url, String.class);
 
-        return  response;
+        return response;
     }
 
 
-
-    public String deleteForm(String submissionId){
+    public String deleteForm(String submissionId) {
 
 
         try {
@@ -47,10 +46,10 @@ public class JotFormSubmissionsHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  "Submission deleted successfully!";
+        return "Submission deleted successfully!";
     }
 
-    public  JSONArray getSubmissionId(String formId) {
+    public JSONArray getSubmissionId(String formId) {
 
         JSONArray submissions = null;
         try {
@@ -82,6 +81,6 @@ public class JotFormSubmissionsHelper {
         }
         return submissions;
     }
-    }
+}
 
 

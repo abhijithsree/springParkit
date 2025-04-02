@@ -2,7 +2,7 @@ package com.carparking.project.domain;
 
 public class UserDto {
 
-    private  String email;
+    private String email;
 
     private String password;
 
@@ -13,6 +13,21 @@ public class UserDto {
     private String remarks;
 
 
+    public UserDto() {
+
+    }
+
+    public UserDto(String active) {
+
+    }
+
+    public UserDto(String email, String password, String roleName, String active, String remarks) {
+        this.email = email;
+        this.password = password;
+        this.roleName = roleName;
+        this.active = active;
+        this.remarks = remarks;
+    }
 
     public String getEmail() {
         return email;
@@ -30,10 +45,6 @@ public class UserDto {
         this.active = active;
     }
 
-    public UserDto(){
-
-    }
-
     public String getRoleName() {
         return roleName;
     }
@@ -42,23 +53,11 @@ public class UserDto {
         this.roleName = roleName;
     }
 
-    public UserDto(String active) {
-
-    }
-
     public String getRemarks() {
         return remarks;
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public UserDto(String email, String password, String roleName, String active,String remarks) {
-        this.email = email;
-        this.password = password;
-        this.roleName = roleName;
-        this.active = active;
         this.remarks = remarks;
     }
 

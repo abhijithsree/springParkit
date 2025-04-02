@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 @Service
 public class RoleService {
 
-    public  final String ADMIN_USER = "ADMIN_USER";
+    public final String ADMIN_USER = "ADMIN_USER";
 
     @Autowired
     RoleRepository roleRepository;
@@ -24,28 +24,27 @@ public class RoleService {
     RoleStagingRepository roleStagingRepository;
 
     public List<Role> getAllRoles() {
-      return   StreamSupport
+        return StreamSupport
                 .stream(roleRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
     public List<RoleStaging> getAllStagedRoles() {
-        return   StreamSupport
+        return StreamSupport
                 .stream(roleStagingRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
     public String stageRoles(List<RoleDto> roles, String email) throws Exception {
-        Iterable<RoleStaging> stagedRoles = roleStagingRepository.saveAll(stagedRoles(roles,email));
-        if(stagedRoles.iterator().hasNext()){
+        Iterable<RoleStaging> stagedRoles = roleStagingRepository.saveAll(stagedRoles(roles, email));
+        if (stagedRoles.iterator().hasNext()) {
             return "Roles Saved";
-        }
-        else{
+        } else {
             throw new Exception("Role staging failed");
         }
     }
 
     private List<RoleStaging> stagedRoles(List<RoleDto> roles, String email) {
-        return roles.stream().map(role->new RoleStaging(role,email)).collect(Collectors.toUnmodifiableList());
+        return roles.stream().map(role -> new RoleStaging(role, email)).collect(Collectors.toUnmodifiableList());
     }
 }

@@ -9,7 +9,8 @@ public class RatesDto {
     private String adminMailId;
 
     // Constructors
-    public RatesDto() {}
+    public RatesDto() {
+    }
 
     public RatesDto(String googleLocation, Double duration, Double charge) {
         this.googleLocation = googleLocation;
@@ -30,16 +31,16 @@ public class RatesDto {
         return duration;
     }
 
+    public void setDuration(Double duration) {
+        this.duration = duration;
+    }
+
     public String getAdminMailId() {
         return adminMailId;
     }
 
     public void setAdminMailId(String adminMailId) {
         this.adminMailId = adminMailId;
-    }
-
-    public void setDuration(Double duration) {
-        this.duration = duration;
     }
 
     public Double getCharge() {

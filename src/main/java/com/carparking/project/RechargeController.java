@@ -16,16 +16,10 @@ public class RechargeController {
     ProfileService profileService;
 
 
-
     @PostMapping("/recharge")
-    public ResponseEntity<String> recharge(@RequestBody RechargeRequest rechargeRequest){
-    return ResponseEntity.ok(profileService.rechargeProfile(rechargeRequest.getVehicleNumber(),rechargeRequest.getDuration()));
+    public ResponseEntity<String> recharge(@RequestBody RechargeRequest rechargeRequest) {
+        return ResponseEntity.ok(profileService.rechargeProfile(rechargeRequest.getVehicleNumber(), rechargeRequest.getDuration()));
     }
-
-
-
-
-
 
 
 }

@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class RatesService {
@@ -18,21 +16,20 @@ public class RatesService {
     RatesRepository ratesRepository;
 
     public String saveRates(List<RatesDto> ratesDtoList, String email) throws Exception {
-        Iterable<Rates> rates =  ratesRepository.saveAll(getRates(ratesDtoList,email));
-        if(rates.iterator().hasNext()){
+        Iterable<Rates> rates = ratesRepository.saveAll(getRates(ratesDtoList, email));
+        if (rates.iterator().hasNext()) {
             return "rates created";
-        }
-        else{
+        } else {
             throw new Exception("rates saving failed");
         }
     }
 
     private List<Rates> getRates(List<RatesDto> ratesDtoList, String email) {
-        List<Rates> rates = ratesDtoList.stream().map(ratesDto -> new Rates(ratesDto,email)).collect(Collectors.toList());
+        List<Rates> rates = ratesDtoList.stream().map(ratesDto -> new Rates(ratesDto, email)).collect(Collectors.toList());
         return rates;
     }
 
-    public Rates getRates(String emailid){
+    public Rates getRates(String emailid) {
         return ratesRepository.findByadminMailId(emailid);
     }
 }

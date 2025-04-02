@@ -10,14 +10,14 @@ import java.util.List;
 @Repository
 public interface LoginRepository extends CrudRepository<User, String> {
 
-    public User findByEmailAndPassword(String email,String passWord);
+    User findByEmailAndPassword(String email, String passWord);
 
-    public User findByEmail(String email);
+    User findByEmail(String email);
 
     @Query(value = "SELECT email FROM login WHERE active = 'ACTIVE' and rolename = 'ADMIN_USER'", nativeQuery = true)
-    public String getActiveUser();
+    String getActiveUser();
 
     @Query(value = "SELECT email FROM login WHERE is_banned = true and rolename = 'USER'", nativeQuery = true)
-    public List<String> bannedUsers();
+    List<String> bannedUsers();
 
 }

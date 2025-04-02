@@ -7,13 +7,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public interface SlotsRepository extends CrudRepository<Slots, Integer> {
 
-    public List<Slots> findByAdminMailId(String adminMailId);
+    List<Slots> findByAdminMailId(String adminMailId);
 
     @Modifying
     @Transactional
@@ -21,7 +20,7 @@ public interface SlotsRepository extends CrudRepository<Slots, Integer> {
     void updateSlotAvailability(int slotId, boolean slotAvailability, String vehicleNum, String startTime, String exitTime);
 
 
-    public Slots findByslotNumber(String slotNumber);
+    Slots findByslotNumber(String slotNumber);
 
 
 }

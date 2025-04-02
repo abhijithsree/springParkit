@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "slots")
-public class Slots implements Comparable<Slots>{
+public class Slots implements Comparable<Slots> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,7 +75,26 @@ public class Slots implements Comparable<Slots>{
 
 
     // Default constructor
-    public Slots() {}
+    public Slots() {
+    }
+
+    public Slots(SlotsDto slotsDto, String slotNumber, String floor, String vehicleType) {
+        this.slotNumber = slotNumber;
+        this.floor = floor;
+        this.vehicleType = vehicleType; // Assign vehicleType
+        this.propertyName = slotsDto.getPropertyName();
+        this.city = slotsDto.getCity();
+        this.district = slotsDto.getDistrict();
+        this.state = slotsDto.getState();
+        this.country = slotsDto.getCountry();
+        this.slotAvailability = slotsDto.isSlotAvailability();
+        this.googleLocation = slotsDto.getGoogleLocation();
+        this.adminName = slotsDto.getAdminName();
+        this.adminPhone = slotsDto.getAdminPhone();
+        this.propertyType = slotsDto.getPropertyType();
+        this.adminMailId = slotsDto.getAdminMailId();
+        this.vehicleNum = slotsDto.getVehicleNum();
+    }
 
     @Override
     public String toString() {
@@ -107,24 +126,6 @@ public class Slots implements Comparable<Slots>{
                 ", exitTime='" + exitTime + '\'' +
                 ", sheetId='" + sheetId + '\'' +
                 '}';
-    }
-
-    public Slots(SlotsDto slotsDto, String slotNumber, String floor, String vehicleType) {
-        this.slotNumber = slotNumber;
-        this.floor = floor;
-        this.vehicleType = vehicleType; // Assign vehicleType
-        this.propertyName = slotsDto.getPropertyName();
-        this.city = slotsDto.getCity();
-        this.district = slotsDto.getDistrict();
-        this.state = slotsDto.getState();
-        this.country = slotsDto.getCountry();
-        this.slotAvailability = slotsDto.isSlotAvailability();
-        this.googleLocation = slotsDto.getGoogleLocation();
-        this.adminName = slotsDto.getAdminName();
-        this.adminPhone = slotsDto.getAdminPhone();
-        this.propertyType = slotsDto.getPropertyType();
-        this.adminMailId = slotsDto.getAdminMailId();
-        this.vehicleNum = slotsDto.getVehicleNum();
     }
 
     // Getters and Setters

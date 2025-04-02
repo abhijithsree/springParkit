@@ -5,7 +5,7 @@ import com.carparking.project.domain.RatesDto;
 import javax.persistence.*;
 
 @Entity
-@Table(name="rates")
+@Table(name = "rates")
 public class Rates {
 
     @Id
@@ -18,9 +18,10 @@ public class Rates {
     private String adminMailId;
 
     // Constructors
-    public Rates() {}
+    public Rates() {
+    }
 
-    public Rates(RatesDto ratesDto,String emailId) {
+    public Rates(RatesDto ratesDto, String emailId) {
         this.googleLocation = ratesDto.getGoogleLocation();
         this.duration = ratesDto.getDuration();
         this.charge = ratesDto.getCharge();

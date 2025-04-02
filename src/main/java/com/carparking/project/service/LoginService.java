@@ -21,7 +21,7 @@ public class LoginService {
 
     public User login(UserDto userDto) throws Exception {
         User user = loginRepository.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
-        if (Objects.nonNull(user)&&!user.isIs_banned()) {
+        if (Objects.nonNull(user) && !user.isIs_banned()) {
             user.setActive("ACTIVE");
             loginRepository.save(user);
             return user;
@@ -43,11 +43,10 @@ public class LoginService {
         if (Objects.nonNull(user) && "ADMIN_USER".equals(ADMIN_USER)) {
             return "Admin User Is Created";
         }
-        if(Objects.nonNull(user)&& "USER".equals(ADMIN_USER)){
+        if (Objects.nonNull(user) && "USER".equals(ADMIN_USER)) {
             emailService.sendEmailUser(user);
             return "User Login Created";
-        }
-        else {
+        } else {
             throw new Exception("Operation Failed");
         }
     }

@@ -9,32 +9,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="login")
+@Table(name = "login")
 public class User {
 
     @Id
     private String email;
 
     private String password;
-    @Column(name="is_banned")
+    @Column(name = "is_banned")
     private boolean is_banned;
 
-    @Column(name="active")
+    @Column(name = "active")
     private String active;
 
-    @Column(name="rolename")
+    @Column(name = "rolename")
     private String roleName;
-    @Column(name="remarks")
+    @Column(name = "remarks")
     private String remarks;
 
-    public User(){
+    public User() {
 
     }
 
     public User(String active) {
     }
 
-    public User(UserDto userDto){
+    public User(UserDto userDto) {
         this.email = userDto.getEmail();
         this.password = userDto.getPassword();
         this.roleName = userDto.getRoleName();
@@ -44,6 +44,10 @@ public class User {
 
     public String getActive() {
         return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 
     public String getRemarks() {
@@ -62,12 +66,12 @@ public class User {
         this.is_banned = is_banned;
     }
 
-    public void setActive(String active) {
-        this.active = active;
-    }
-
     public String getUserName() {
         return email;
+    }
+
+    public void setUserName(String userName) {
+        this.email = userName;
     }
 
     public String getEmail() {
@@ -84,10 +88,6 @@ public class User {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
-    }
-
-    public void setUserName(String userName) {
-        this.email = userName;
     }
 
     public String getPassWord() {

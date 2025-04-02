@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     @Autowired
-   private LoginService adminService;
-
-    @Autowired
     ImageService imageService;
+    @Autowired
+    private LoginService adminService;
 
     @PostMapping("/login")
     @CrossOrigin("*")

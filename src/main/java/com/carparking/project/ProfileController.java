@@ -2,11 +2,8 @@ package com.carparking.project;
 
 import com.carparking.project.domain.ProfileDto;
 import com.carparking.project.entities.Profile;
-import com.carparking.project.entities.PropertyImageEntity;
 import com.carparking.project.service.ProfileService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +43,7 @@ public class ProfileController {
     }
 
     @GetMapping("/timer")
-    public ResponseEntity< Map<String, String>> getTimer() {
+    public ResponseEntity<Map<String, String>> getTimer() {
         Map<String, String> profile = profileService.getAllTimer();
         return ResponseEntity.ok(profile);
     }
@@ -54,9 +51,20 @@ public class ProfileController {
 
     @GetMapping("/banned")
     public ResponseEntity<String> getTimer(@RequestParam String vehicleNumber) {
-        String status =  profileService.ban(vehicleNumber);
+        String status = profileService.ban(vehicleNumber);
         return ResponseEntity.ok(status);
     }
 
+    @GetMapping("/sync")
+    public ResponseEntity<String> sync(@RequestParam String vehicleNumber) throws Exception {
+        String status = profileService.updateProfile(vehicleNumber);
+        return ResponseEntity.ok(status);
+    }
+
+
+    @GetMapping("/leave")
+    public ResponseEntity<String> leaveslot(@RequestParam String slotNumber) throws Exception {
+        return ResponseEntity.ok(profileService.leaveSlotFlow(slotNumber));
+    }
 
 }

@@ -39,15 +39,15 @@ public class RoleStaging {
         return responsibilities;
     }
 
+    public void setResponsibilities(String responsibilities) {
+        this.responsibilities = responsibilities;
+    }
+
     public String getAdminMailId() {
         return adminMailId;
     }
 
     public void setAdminMailId(String adminMailId) {
         this.adminMailId = adminMailId;
-    }
-
-    public void setResponsibilities(String responsibilities) {
-        this.responsibilities = responsibilities;
     }
 }

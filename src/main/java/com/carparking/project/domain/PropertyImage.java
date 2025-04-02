@@ -13,9 +13,10 @@ public class PropertyImage {
     private String ownerPhoneNum;
 
     // Default constructor
-    public PropertyImage() {}
+    public PropertyImage() {
+    }
 
-    public PropertyImage(String image, String propertyLocation, String propertyName, String image2,String propertyDesc) {
+    public PropertyImage(String image, String propertyLocation, String propertyName, String image2, String propertyDesc) {
         this.image = image;
         this.propertyLocation = propertyLocation;
         this.propertyName = propertyName;

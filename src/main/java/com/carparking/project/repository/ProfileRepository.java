@@ -17,5 +17,4 @@ public interface ProfileRepository extends JpaRepository<Profile, String> {
     Profile findByallocatedSlotNumber(String allocatedSlotNumber);
 
 
-
 }

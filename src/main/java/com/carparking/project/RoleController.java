@@ -19,12 +19,13 @@ public class RoleController {
 
     @GetMapping("/allRoles")
     @CrossOrigin("*")
-    public ResponseEntity<List<Role>> getAllRoles(){
+    public ResponseEntity<List<Role>> getAllRoles() {
         return ResponseEntity.ok(roleService.getAllRoles());
     }
+
     @GetMapping("/stagedRoles")
     @CrossOrigin("*")
-    public ResponseEntity<List<RoleStaging>> getAllStagedRoles(){
+    public ResponseEntity<List<RoleStaging>> getAllStagedRoles() {
         return ResponseEntity.ok(roleService.getAllStagedRoles());
     }
 }

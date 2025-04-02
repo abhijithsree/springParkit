@@ -105,10 +105,10 @@ INSERT INTO profile (
     booking_time, is_banned, fine_amount, booking_source, role_name, vehicle_brand,
     fuel_type, vehicle_clr, vehicle_gene, endtime, remainingtime
 ) VALUES (
-    'KL65H432', '9947215650', 'Vijay', 1, 'car', '2025-03-21 02:30:00',
+    'KL65H432', '9947215650', 'Vijay', 1, 'car', '2025-04-02 02:30:00',
     'vijay007@gmail.com', true, 170, 'A1', 'College Of Engineering Chengannur',
     60, '2025-03-21', 'gokulgnair777@gmail.com', 'Civic', 170, '02:30:00',
-    true, 0, NULL, NULL, 'Honda', 'Petrol', 'Red', 'Sedan', '2025-03-27T03:31', NULL
+    true, 0, NULL, NULL, 'Honda', 'Petrol', 'Red', 'Sedan', '2025-04-02T03:31', NULL
 );
 
 INSERT INTO slots (

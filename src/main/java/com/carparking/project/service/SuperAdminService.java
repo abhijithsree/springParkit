@@ -7,18 +7,15 @@ import com.carparking.project.repository.SuperAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
 @Service
 public class SuperAdminService {
 
     @Autowired
-    private SuperAdminRepository superAdminRepository;
-
-    @Autowired
     LoginRepository loginRepository;
-
+    @Autowired
+    private SuperAdminRepository superAdminRepository;
     @Autowired
     private EmailService emailService;
 
@@ -62,16 +59,15 @@ public class SuperAdminService {
 
     public String acceptPropertyDetails(String email) throws Exception {
         User user = loginRepository.findByEmail(email);
-        if(Objects.nonNull(user)){
+        if (Objects.nonNull(user)) {
             emailService.sendEmailAdmin(user);
             return "Successfully mailed";
-        }
-        else{
+        } else {
             throw new Exception("No User");
         }
     }
 
-    public String rejectPropertyDetails(String email){
+    public String rejectPropertyDetails(String email) {
         return "";
     }
 }

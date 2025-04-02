@@ -9,9 +9,10 @@ import com.carparking.project.helper.SlotsHelper;
 import com.carparking.project.repository.LoginRepository;
 import com.carparking.project.repository.ProfileRepository;
 import com.carparking.project.repository.SlotsRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -19,10 +20,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -31,26 +29,44 @@ import java.util.stream.Collectors;
 public class ProfileService {
 
     @Autowired
+    JotFormSubmissionsHelper jotFormSubmissionsHelper;
+    @Autowired
+    LoginService loginService;
+    @Autowired
+    ObjectMapper objectMapper;
+    @Autowired
+    SlotsHelper slotsHelper;
+    @Autowired
+    SlotsRepository slotsRepository;
+    @Autowired
     private ProfileRepository profileRepository;
-
     @Autowired
     private LoginRepository loginRepository;
 
-    @Autowired
-    JotFormSubmissionsHelper jotFormSubmissionsHelper;
+    public static LocalDateTime addCustomDuration(LocalDateTime dateTime, String durationStr) {
+        Pattern pattern = Pattern.compile("(\\d+)([hms])"); // Regex to extract hours, minutes, seconds
+        Matcher matcher = pattern.matcher(durationStr);
 
-    @Autowired
-    LoginService loginService;
+        while (matcher.find()) {
+            int value = Integer.parseInt(matcher.group(1));
+            String unit = matcher.group(2);
 
-    @Autowired
-    ObjectMapper objectMapper;
+            switch (unit) {
+                case "h":
+                    dateTime = dateTime.plus(value, ChronoUnit.HOURS);
+                    break;
+                case "m":
+                    dateTime = dateTime.plus(value, ChronoUnit.MINUTES);
+                    break;
+                case "s":
+                    dateTime = dateTime.plus(value, ChronoUnit.SECONDS);
+                    break;
+            }
+        }
+        return dateTime;
 
-    @Autowired
-    SlotsHelper slotsHelper;
 
-    @Autowired
-    SlotsRepository slotsRepository;
-
+    }
 
     //for app users
     public String saveProfile(ProfileDto profileDto) throws Exception {
@@ -123,13 +139,14 @@ public class ProfileService {
         return list;
     }
 
-
-    public String updateProfile(String formId) throws Exception {
-        String jsonResponse = jotFormSubmissionsHelper.getFormResponse(formId);
+    public String updateProfile(String vehicleNumber) throws Exception {
+        Profile profilebyVehiclenumber = profileRepository.findByVehicleNumber(vehicleNumber);
+        Slots slots = slotsRepository.findByslotNumber(profilebyVehiclenumber.getAllocatedSlotNumber());
+        String jsonResponse = jotFormSubmissionsHelper.getFormResponse(slots.getSheetId());
         JsonResponse jsonResponse1 = objectMapper.readValue(jsonResponse, JsonResponse.class);
         List<FormContent> formdata = jsonResponse1.getContent();
         Map<String, Answer> answers = formdata.stream().map(form -> form.getAnswers()).findFirst().get();
-        Answer vehicleData = answers.get("7");
+        Answer vehicleData = answers.get("5");
         Answer email = answers.get("4");
         Answer fullName = answers.get("3");
 
@@ -137,7 +154,6 @@ public class ProfileService {
         String vehiclenumber = vehicleData.getAnswer().toString().replaceAll("\\s", "");
         String emailData = email.getAnswer().toString().replaceAll("\\s", "");
         String fullNamePrettyFormat = fullName.getPrettyFormat();
-        ;
         String emailinfo = emailData.replace("\"", "");  // Remove all double quotes
 
         List<String> banned = loginRepository.bannedUsers();
@@ -156,28 +172,36 @@ public class ProfileService {
             UserDto userDto = new UserDto();
             userDto.setEmail(emailinfo);
             userDto.setRoleName("USER");
-            userDto.setPassword(String.valueOf(Math.random()) + "xxxx");
+            userDto.setPassword(Math.random() + "xxxx");
             userDto.setActive("");
             loginService.signUp(userDto, "USER");
         } catch (Exception e) {
             System.out.println("e===" + e.getMessage());
 
         }
-        return null;
+        return "Successfully completed";
     }
+
 
     public Map<String, String> getAllTimer() {
         LocalDateTime currentDate = LocalDateTime.now();
+        Map<String, String> result = null;
         List<Profile> profiles = profileRepository.findAll().stream().filter(p -> p.getAdminMailId().equals("gokulgnair777@gmail.com")).collect(Collectors.toList());
-        return profiles.stream()
-                .collect(Collectors.toMap(Profile::getVehicleNumber, p -> duration(currentDate, convertToLocalDateTime(LocalDateTime.parse(p.getEndtime(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")).toLocalTime(), currentDate.toLocalDate()))));
-
+       try {
+           result = profiles.stream()
+                   .collect(Collectors.toMap(Profile::getVehicleNumber, p -> duration(currentDate, convertToLocalDateTime(LocalDateTime.parse(p.getEndtime(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")).toLocalTime(), currentDate.toLocalDate()))));
+       }
+       catch (Exception e){
+           System.out.println(e.getMessage());
+       }
+return result;
     }
+
+
 
     private LocalDateTime convertToLocalDateTime(LocalTime time, LocalDate date) {
         return LocalDateTime.of(date, time);
     }
-
 
     public String duration(LocalDateTime currentDateTime, LocalDateTime endDateTime) {
         Duration remainingDuration = Duration.between(currentDateTime, endDateTime);
@@ -185,9 +209,9 @@ public class ProfileService {
         long minutes = remainingDuration.toMinutes() % 60;
         long seconds = remainingDuration.getSeconds() % 60;
         System.out.println(String.format("%02d hours, %02d minutes, %02d seconds", hours, minutes, seconds));
-        return String.format("%02d hours, %02d minutes, %02d seconds", hours, minutes, seconds);
+        String output =  String.format("%02d hours, %02d minutes, %02d seconds", hours, minutes, seconds);
+        return output;
     }
-
 
     public String ban(String vehicleNumber) {
         Profile profile = profileRepository.findByVehicleNumber(vehicleNumber);
@@ -201,7 +225,6 @@ public class ProfileService {
         return "failed";
     }
 
-
     public String rechargeProfile(String vehiclenumber, String duration) {
         Profile profile = profileRepository.findByVehicleNumber(vehiclenumber);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -212,46 +235,20 @@ public class ProfileService {
         return newDateTime.toString();
     }
 
-
-
-
-
-
-    public static LocalDateTime addCustomDuration(LocalDateTime dateTime, String durationStr) {
-        Pattern pattern = Pattern.compile("(\\d+)([hms])"); // Regex to extract hours, minutes, seconds
-        Matcher matcher = pattern.matcher(durationStr);
-
-        while (matcher.find()) {
-            int value = Integer.parseInt(matcher.group(1));
-            String unit = matcher.group(2);
-
-            switch (unit) {
-                case "h":
-                    dateTime = dateTime.plus(value, ChronoUnit.HOURS);
-                    break;
-                case "m":
-                    dateTime = dateTime.plus(value, ChronoUnit.MINUTES);
-                    break;
-                case "s":
-                    dateTime = dateTime.plus(value, ChronoUnit.SECONDS);
-                    break;
-            }
-        }
-        return dateTime;
-
-
-
-
-    }
-
-    public void leaveSlotFlow(String slotnumber){
+    public String leaveSlotFlow(String slotnumber) {
         Profile profile = profileRepository.findByallocatedSlotNumber(slotnumber);
+        Slots slots = slotsRepository.findByslotNumber(slotnumber);
         slotsHelper.leaveSlot(slotsRepository.findByslotNumber(slotnumber));
         profile.setAllocatedSlotNumber("");
         profile.setEndtime(String.valueOf(0));
         profileRepository.save(profile);
+       JSONArray submissions =  jotFormSubmissionsHelper.getSubmissionId(slots.getSheetId());
+        for (int i = 0; i < submissions.length(); i++) {
+            String submissionId = submissions.getJSONObject(i).getString("id");
+            jotFormSubmissionsHelper.deleteForm(submissionId);
+        }
+       return slotnumber + "left";
     }
-
 
 
 }

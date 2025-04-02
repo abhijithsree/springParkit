@@ -1,4 +1,5 @@
 package com.carparking.project.service;
+
 import com.carparking.project.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,32 +13,32 @@ public class EmailService {
     private JavaMailSender mailSender;
 
 
-    public void sendEmailAdmin(User login){
+    public void sendEmailAdmin(User login) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("007parkit@gmail.com");  // Replace with your email
         message.setTo(login.getEmail());
         message.setSubject("Welcome Admin:Please find your credential");
-        message.setText("Your UserName is"+ login.getEmail()+"Your Passsword is "+ login.getPassWord());
+        message.setText("Your UserName is" + login.getEmail() + "Your Passsword is " + login.getPassWord());
 
         mailSender.send(message);
 
     }
 
-    public void sendEmailUser(User login){
+    public void sendEmailUser(User login) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("007parkit@gmail.com");  // Replace with your email
         message.setTo(login.getEmail());
         message.setSubject("Welcome User:Please find your credential");
-        message.setText("Your UserName is"+ login.getEmail()+"Your Passsword is "+ login.getPassWord());
+        message.setText("Your UserName is" + login.getEmail() + "Your Passsword is " + login.getPassWord());
 
         mailSender.send(message);
 
     }
 
 
-    public void sendEmailfornoca(String admin){
+    public void sendEmailfornoca(String admin) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("007parkit@gmail.com");  // Replace with your email

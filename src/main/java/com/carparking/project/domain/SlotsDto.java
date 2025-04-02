@@ -35,10 +35,15 @@ public class SlotsDto {
     private List<RatesDto> ratesDto;
 
     // Default constructor
-    public SlotsDto() {}
+    public SlotsDto() {
+    }
 
     public List<FloorSlotDto> getFloorSlotDto() {
         return floorSlotDto;
+    }
+
+    public void setFloorSlotDto(List<FloorSlotDto> floorSlotDto) {
+        this.floorSlotDto = floorSlotDto;
     }
 
     public List<RatesDto> getRatesDto() {
@@ -47,10 +52,6 @@ public class SlotsDto {
 
     public void setRatesDto(List<RatesDto> ratesDto) {
         this.ratesDto = ratesDto;
-    }
-
-    public void setFloorSlotDto(List<FloorSlotDto> floorSlotDto) {
-        this.floorSlotDto = floorSlotDto;
     }
 
     public UserDto getUserDto() {

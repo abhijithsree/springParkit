@@ -21,7 +21,7 @@ public class SlotsController {
 
     @GetMapping("/slots")
     @CrossOrigin("*")
-    public ResponseEntity<List<Slots>> getAllSlots(@RequestParam String adminMailId){
+    public ResponseEntity<List<Slots>> getAllSlots(@RequestParam String adminMailId) {
         return ResponseEntity.ok(slotsService.getAllSlots(adminMailId));
     }
 
@@ -35,7 +35,7 @@ public class SlotsController {
     @CrossOrigin("*")
     public ResponseEntity<String> slotLeave(@RequestParam String slotsnumber) throws Exception {
         profileService.leaveSlotFlow(slotsnumber);
-        return ResponseEntity.ok(slotsnumber+"Succefully left");
+        return ResponseEntity.ok(slotsnumber + "Succefully left");
     }
 
 }
